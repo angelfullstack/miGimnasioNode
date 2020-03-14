@@ -7,31 +7,42 @@ const getAll = () => {
   });
 };
 
-const getById = (id)=>{
-  return new Promise((resolve,reject)=>{
-    db.query("SELECT * FROM profesores where id = ?",[id],
-    (err,rows)=>{
-      if(err) reject(err);
+const getById = id => {
+  return new Promise((resolve, reject) => {
+    db.query("SELECT * FROM profesores where id = ?", [id], (err, rows) => {
+      if (err) reject(err);
       resolve(rows);
-    })
-  })
-
-}
-
-
-const create=({nombre,experiencia})=>{
-    return new Promise((resolve,reject)=>{
-        db.query("INSERT INTO profesores (nombre,experiencia) VALUES (?,?)",[nombre,experiencia],(err,result)=>{
-            if(err) reject(err);
-            resolve(result)
-        });
     });
+  });
+};
+
+const create = ({ nombre, experiencia }) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "INSERT INTO profesores (nombre,experiencia) VALUES (?,?)",
+      [nombre, experiencia],
+      (err, result) => {
+        if (err) reject(err);
+        resolve(result);
+      }
+    );
+  });
+};
+
+const deleteById = id => {
+  return new Promise((resolve, reject) => {
+    db.query("DELETE FROM profesores WHERE id = ?", [id], (err, result) => {
+      if (err) reject(err);
+      resolve(result);
+    });
+  });
 };
 
 module.exports = {
   getAll: getAll,
-  getById:getById,
-  create:create,
+  getById: getById,
+  create: create,
+  deleteById,deleteById
 };
 
 /*recuperar, crear, editar y borrar los datos 

@@ -14,8 +14,8 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const rows = await Profesor.getById(req.params.id);
-    res.json(rows[0])
-  }catch(err){
+    res.json(rows[0]);
+  } catch (err) {
     res.json(err);
   }
 });
@@ -25,9 +25,9 @@ router.post("/", async (req, res) => {
   try {
     const result = await Profesor.create(req.body);
     if (result["affectedRows"] === 1) {
-      const student = await Student.getById(result["insertId"]);
+      const profesor = await Profesor.getById(result["insertId"]);
     } else {
-      res.json({ error: "Error que me sale de la nariz" });
+      res.json({ error: "Error en la petición crear profesor" });
     }
     res.json(result);
   } catch (err) {
@@ -35,5 +35,18 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  try {
+    const result = await Profesor.deleteById(req.params.id);
+    if (result["affectedRows"] === 1) {
+      res.json("El profesor se ha borrado correctamente");
+    } else {
+      res.json({ error: "El profesor no existe o ha ocurrido otro problema" });
+    }
+    res.json(result);
+  } catch (err) {
+    res.json(err);
+  }
+});
 
 module.exports = router;

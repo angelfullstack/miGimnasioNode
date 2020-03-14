@@ -38,11 +38,27 @@ const deleteById = id => {
   });
 };
 
+const updateById = ({ nombre, experiencia }, id) => {
+  return new Promise((resolve, reject) => {
+   
+    db.query(
+      "UPDATE profesores SET nombre=?,experiencia=? WHERE id=?",
+      [nombre, experiencia, id],
+      (err, result) => {
+        if (err) reject(err);
+        resolve(result);
+      }
+    );
+  });
+};
+
 module.exports = {
   getAll: getAll,
   getById: getById,
   create: create,
-  deleteById,deleteById
+  deleteById,
+  deleteById,
+  updateById: updateById
 };
 
 /*recuperar, crear, editar y borrar los datos 

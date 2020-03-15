@@ -1,3 +1,7 @@
+//De momento las ID se pasan por parámetro.
+//Una buena forma de modularizar podría ser que las funciones getAll, getById y delete se hicieran en un modelo genérico en el que se pasara como parámetro en nombre de la tabla a la que afectar. Lo intentaré tener a lo largo del día de mañana
+
+
 var router = require("express").Router();
 var clientesRouter = require("./api/clientes");
 var profesoresRouter = require("./api/profesores");
